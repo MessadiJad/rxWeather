@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import MapKit
 
 class WeatherDetailsViewModel {
     let citySubject = BehaviorRelay<Citys>(value: Citys.empty)
@@ -48,9 +49,9 @@ class WeatherDetailsViewModel {
     var todayListIcons: [UIImage] = [
         UIImage(named: "01d.png")!,
         UIImage(named: "02d.png")!,
-        UIImage(named: "02d.png")!
+        UIImage(named: "01n.png")!
     ]
-    
+
     func getForecastWeather(lat: Double, lon: Double)-> Observable<WeatherForecastResult?>{
         let forecastObservable = Api.shared.fetchForecastWeather(by: lat, Lon: lon)
         forecastObservable.map{ data in
@@ -71,11 +72,6 @@ class WeatherDetailsViewModel {
     func getWeatherIcon(code: String) ->Observable<UIImage?> {
        let iconObservable = Api.shared.getWeatherIcon(by: code)
         return iconObservable.asObservable()
-//        iconObservable.subscribe(onNext : { icon in
-//            if let icon = icon {
-//                self.iconSubject.onNext(icon)
-//            }
-//        }).disposed(by: disposeBag)
     }
     
     func getDailyWeatherIcon(code: String) -> Observable<UIImage?> {
@@ -93,5 +89,14 @@ class WeatherDetailsViewModel {
         return city + ", " + country
     }
   
+    func getLocation(lat : Double, lon: Double) -> CLLocation{
+        return  CLLocation(latitude: lat, longitude: lon)
+    }
     
-}
+    func getAnnotationCoordinate(lat : Double, lon: Double) -> MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+       return annotation
+    }
+    
+} 

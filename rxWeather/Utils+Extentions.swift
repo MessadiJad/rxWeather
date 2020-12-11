@@ -10,6 +10,8 @@ import RxCocoa
 import RxSwift
 import MapKit
 
+var localTimeZoneIdentifier: String { return TimeZone.current.identifier }
+
 func UIColorFromRGB(rgbValue: UInt) -> UIColor {
     return UIColor(
         red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
@@ -53,7 +55,7 @@ func getToDayDate() -> String {
 }
 
 func getTemperature(temp: Double) -> String {
-    return calculateCelsius(fahrenheit: temp) + " °C"
+    return calculateCelsius(fahrenheit: temp) + "°"
 }
 
 func getWind(wind: Double) -> String {
@@ -73,7 +75,7 @@ func getPressure(pressure: Double) -> String {
 }
 
 func getFeelLike(temp: Double) -> String {
-    return calculateCelsius(fahrenheit: temp) + " °C"
+    return calculateCelsius(fahrenheit: temp)
 }
 
 func getSunrise(date: Int) -> String {
@@ -85,11 +87,11 @@ func getSunset(date: Int) -> String {
 }
 
 func getTempMax(max: Double) -> String {
-    return calculateCelsius(fahrenheit: max) + " °C"
+    return calculateCelsius(fahrenheit: max) + "°"
 }
 
 func getTempMin(min: Double) -> String {
-    return calculateCelsius(fahrenheit: min) + " °C"
+    return calculateCelsius(fahrenheit: min)
 }
 
 func getDayName(day: Int) -> String {
@@ -137,6 +139,7 @@ class GradientView: UIView {
     }
 }
 
+
 extension MKMapView {
     func centerToLocation(
         _ location: CLLocation,
@@ -147,5 +150,68 @@ extension MKMapView {
             latitudinalMeters: regionRadius,
             longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
+    }
+}
+
+
+extension UISearchBar {
+    
+    var textColor:UIColor? {
+        get {
+            if let textField = self.value(forKey: "searchField") as? UITextField  {
+                return textField.textColor
+            } else {
+                return nil
+            }
+        }
+        
+        set (newValue) {
+            if let textField = self.value(forKey: "searchField") as? UITextField  {
+                textField.textColor = newValue
+            }
+        }
+    }
+}
+
+extension UIBarButtonItem {
+    var isHidden: Bool {
+        get {
+            return !isEnabled && tintColor == .clear
+        }
+        set {
+            tintColor = newValue ? .clear : nil
+            isEnabled = !newValue
+        }
+    }
+}
+
+extension UIView {
+
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: layer.borderColor!)
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
     }
 }

@@ -11,11 +11,9 @@ import RxCocoa
 import MapKit
 
 class WeatherDetailsController: UIViewController {
-    
-    
+        
     let viewModel = WeatherDetailsViewModel()
     
-    @IBOutlet weak var bannerView: GradientView!
     @IBOutlet weak var countryLabel : UILabel!
     @IBOutlet weak var tempLabel : UILabel!
     @IBOutlet weak var windLabel: UILabel!
@@ -39,11 +37,11 @@ class WeatherDetailsController: UIViewController {
         super.viewDidLoad()
         
         viewModel.citySubjectObservable.subscribe(onNext: { details in
-            guard let weatherMain = details.weather.first?.main else { return }
-            self.setupView(weather: weatherMain)
             
-            self.viewModel.getForecastWeather(lat: details.coord.lat, lon: details.coord.lon).subscribe(onNext : { data in
+            guard let weatherMain = details.weather.first?.main else { return }
+             self.viewModel.getForecastWeather(lat: details.coord.lat, lon: details.coord.lon).subscribe(onNext : { data in
                 if let data = data {
+                    self.setupView(weather: weatherMain, timeZone: data.timezone)
                     self.visibilityLabel.text = getVisibility(visibility: data.current.visibility)
                     self.sunriseLabel.text = getSunrise(date: data.current.sunrise)
                     self.sunsetLabel.text = getSunset(date: data.current.sunset)
@@ -80,7 +78,7 @@ class WeatherDetailsController: UIViewController {
             self.updateWeatherCollection()
         }).disposed(by: viewModel.disposeBag)
          
-        self.viewModel.dailyCollectionObservable.bind(to: self.collectionView.rx.items(cellIdentifier: "weatherCollectionCell", cellType: WeatherCollectionCell.self)){ row, data, cell in
+        self.viewModel.dailyCollectionObservable.bind(to: self.collectionView.rx.items(cellIdentifier: weatherCollectionCellId, cellType: WeatherCollectionCell.self)){ row, data, cell in
             cell.weatherDayLabel.text = getDayName(day: data.dt)
             cell.temperatureLabel.text = getTemperature(temp: data.temp.day)
             cell.humidityLabel.text = getHumidity(humidity: data.humidity)
@@ -90,7 +88,7 @@ class WeatherDetailsController: UIViewController {
             }).disposed(by: self.viewModel.disposeBag)
         }.disposed(by: self.viewModel.disposeBag)
         
-        self.viewModel.todayCollectionObservable.bind(to: self.todaycollectionView.rx.items(cellIdentifier: "weatherCollectionCell", cellType: WeatherCollectionCell.self)){ row, data, cell in
+        self.viewModel.todayCollectionObservable.bind(to: self.todaycollectionView.rx.items(cellIdentifier: weatherCollectionCellId, cellType: WeatherCollectionCell.self)){ row, data, cell in
             cell.weatherDayLabel.text = self.viewModel.listTime[row]
             cell.weatherIcon.image = self.viewModel.todayListIcons[row]
             cell.temperatureLabel.text = getTemperature(temp: self.viewModel.listWeather[row])
@@ -98,28 +96,26 @@ class WeatherDetailsController: UIViewController {
         
     }
     
-    private func setupView(weather : String) {
-        addGradient(colors:[getColor(from: weather),UIColor.white], view: self.bannerView)
+    private func setupView(weather : String, timeZone: String) {
+
+        SkyView.shared.initWith(weather: weather, timeZone: timeZone, view: self.view)
 
         let flowLayout = UICollectionViewFlowLayout()
         let size = (collectionView.frame.size.width - CGFloat(30)) / CGFloat(3)
         flowLayout.itemSize = CGSize(width: size, height: size)
         flowLayout.scrollDirection = .horizontal
-        collectionView.setCollectionViewLayout(flowLayout, animated: true)
+        collectionView.setCollectionViewLayout(flowLayout, animated: false)
         
         let todayflowLayout = UICollectionViewFlowLayout()
         let todaysize = (todaycollectionView.frame.size.width - CGFloat(30)) / CGFloat(3)
         todayflowLayout.itemSize = CGSize(width: todaysize, height: todaysize)
         todayflowLayout.scrollDirection = .horizontal
-        todaycollectionView.setCollectionViewLayout(todayflowLayout, animated: true)
+        todaycollectionView.setCollectionViewLayout(todayflowLayout, animated: false)
     }
     
     private func setupMapView(with lat : Double , lon : Double) {
-        let annotation = MKPointAnnotation()
-        let locationCoord =  CLLocation(latitude: lat, longitude: lon)
-        self.mapView.centerToLocation(locationCoord)
-        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        self.mapView.addAnnotation(annotation)
+        self.mapView.centerToLocation(viewModel.getLocation(lat: lat, lon: lon))
+        self.mapView.addAnnotation(viewModel.getAnnotationCoordinate(lat: lat, lon: lon))
     }
     
     private func updateWeatherCollection() {

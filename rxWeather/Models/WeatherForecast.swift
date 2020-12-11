@@ -48,5 +48,4 @@ extension WeatherForecastResult {
     static var empty: WeatherForecastResult {
         return WeatherForecastResult(timezone: "", timezone_offset: 0.0, current: WeatherForecastCity(dt: 0.0, sunrise: 0, sunset: 0, visibility: 0.0, dew_point: 0.0, uvi: 0.0, clouds: 0.0), daily: [])
     }
-    
 }

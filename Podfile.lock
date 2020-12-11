@@ -1,4 +1,5 @@
 PODS:
+  - FloatingPanel (2.0.1)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -12,23 +13,26 @@ PODS:
   - RxSwift (5.1.1)
 
 DEPENDENCIES:
+  - FloatingPanel
   - RxCocoa
   - RxCoreLocation (~> 1.4)
   - RxSwift
 
 SPEC REPOS:
   trunk:
+    - FloatingPanel
     - RxCocoa
     - RxCoreLocation
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
+  FloatingPanel: 579a5ac0154f923a9d7302c4f13dbc0268511c92
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxCoreLocation: 4789d980742b21c087062387f6758b456221fb2f
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: bcbb31440f1c0a2ef473affc5c20c06b418b4f4c
+PODFILE CHECKSUM: 05fe295166ef5839d07b971cc5015990612a2cf2
 
 COCOAPODS: 1.9.3

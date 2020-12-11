@@ -12,4 +12,5 @@ class WeatherCollectionCell : UICollectionViewCell {
     @IBOutlet weak var weatherIcon : UIImageView!
     @IBOutlet weak var temperatureLabel : UILabel!
     @IBOutlet weak var humidityLabel : UILabel!
+    @IBOutlet weak var separatorView: UIView!
 }
