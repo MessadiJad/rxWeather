@@ -126,6 +126,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
     
     func searchCityDidSelect(elementExist : Bool) {
         if !elementExist {
+            searchButton.isHidden = true
             present(searchController, animated: true, completion: nil)
         }else {
             listCitysVC.collectionView.isHidden = false
