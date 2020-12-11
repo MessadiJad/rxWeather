@@ -11,7 +11,9 @@ import RxCocoa
 import RxCoreLocation
 import CoreLocation
 
-class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControllerDelegate  {
+class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControllerDelegate, WeatherListControllerDelegate {
+  
+    
     
     let viewModel = HomeViewModel()
     
@@ -28,13 +30,14 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
     @IBOutlet weak var todayCollectionView: UICollectionView!
     
     lazy var searchController = UISearchController(searchResultsController:nil)
-    lazy var listCitysVC = storyboard?.instantiateViewController(withIdentifier: "searchResultsTableViewController") as! SearchViewController
-    
+    lazy var searchCitysVC = storyboard?.instantiateViewController(withIdentifier: "searchResultsTableViewController") as! SearchViewController
+    lazy var listCitysVC = storyboard?.instantiateViewController(withIdentifier: "WeatherCitysListViewController") as! WeatherListController
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         initLocation()
         initSearchBar()
-    
         self.viewModel.getCurrentCity().subscribe(onNext: { city in
             
             if let list = city?.list.first {
@@ -63,7 +66,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
         searchController.searchBar.rx.text.orEmpty.subscribe(onNext: { name in
             self.viewModel.fetchCitys(by: name).subscribe(onNext: { city in
                 if let city = city {
-                    self.listCitysVC.searchResults.accept(city.list)
+                    self.searchCitysVC.searchResults.accept(city.list)
                 }
             }).disposed(by: self.viewModel.disposeBag)
         }).disposed(by: self.viewModel.disposeBag)
@@ -79,7 +82,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
             }
         }.disposed(by: self.viewModel.disposeBag)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showSearchButton), name: Notification.Name("SearchButtonNotificationId"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSearchButton), name: Notification.Name(searchButtonId), object: nil)
         
     }
         
@@ -98,12 +101,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
     }
     
     private func initSearchBar() {
-        searchController = UISearchController(searchResultsController: listCitysVC)
+        searchController = UISearchController(searchResultsController: searchCitysVC)
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search city"
-        searchController.searchResultsUpdater = listCitysVC
-        searchController.searchBar.delegate = listCitysVC
+        searchController.searchResultsUpdater = searchCitysVC
+        searchController.searchBar.delegate = searchCitysVC
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.tintColor = .white
         searchController.searchBar.textColor = .white
@@ -121,6 +124,21 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
         present(searchController, animated: true, completion: nil)
     }
     
+    func searchCityDidSelect(elementExist : Bool) {
+        if !elementExist {
+            present(searchController, animated: true, completion: nil)
+        }else {
+            listCitysVC.collectionView.isHidden = false
+            listCitysVC.layer.removeFromSuperlayer()
+            listCitysVC.findCitysButton.isHidden = true
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.listCitysVC = segue.destination as! WeatherListController
+        self.listCitysVC.delegate = self
+    }
+
     @objc func showSearchButton() {
         searchButton.isHidden = false
         searchButton.tintColor = .white

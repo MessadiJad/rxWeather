@@ -13,7 +13,7 @@
         <scene sceneID="rot-ok-l8e">
             <objects>
                 <viewController id="j6b-FR-U93" customClass="WeatherDetailsController" customModule="rxWeather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="q8n-Lk-NDh" customClass="GradientView" customModule="rxWeather" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="q8n-Lk-NDh" customClass="SkyView" customModule="rxWeather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -724,7 +724,7 @@
         <scene sceneID="65z-L5-YS6">
             <objects>
                 <viewController id="yY7-Ou-TfN" userLabel="Home Scene" customClass="HomeViewController" customModule="rxWeather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DAP-hd-cOZ" customClass="GradientView" customModule="rxWeather" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="DAP-hd-cOZ" customClass="SkyView" customModule="rxWeather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -777,7 +777,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3rC-HC-7ZX">
-                                <rect key="frame" x="18" y="350" width="394" height="80"/>
+                                <rect key="frame" x="18" y="340" width="394" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="yAp-ff-huI">
                                         <rect key="frame" x="0.0" y="0.0" width="98.666666666666671" height="80"/>
@@ -888,10 +888,10 @@
                                 </constraints>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="br4-WE-sXS">
-                                <rect key="frame" x="27" y="440" width="374" height="128"/>
+                                <rect key="frame" x="27" y="430" width="374" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="uSb-Ar-CWs"/>
+                                    <constraint firstAttribute="height" constant="110" id="uSb-Ar-CWs"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gbL-UZ-KmU">
                                     <size key="itemSize" width="112" height="128"/>
@@ -901,7 +901,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="weatherCollectionCell" id="kpV-UU-S4B" customClass="WeatherCollectionCell" customModule="rxWeather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="112" height="128"/>
+                                        <rect key="frame" x="0.0" y="-9" width="112" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hyP-yq-EwR">
                                             <rect key="frame" x="0.0" y="0.0" width="112" height="128"/>
@@ -965,16 +965,24 @@
                                     <segue destination="8aE-yj-fZN" kind="embed" id="h1d-up-M73"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More citys:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAh-mK-zJA">
+                                <rect key="frame" x="8" y="571.66666666666663" width="84" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aVA-rT-eco"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="7G7-z3-hP0" firstAttribute="bottom" secondItem="aVA-rT-eco" secondAttribute="bottom" id="0fG-9j-ePx"/>
                             <constraint firstItem="7G7-z3-hP0" firstAttribute="trailing" secondItem="aVA-rT-eco" secondAttribute="trailing" id="Agc-fi-tbU"/>
+                            <constraint firstItem="7G7-z3-hP0" firstAttribute="top" secondItem="QAh-mK-zJA" secondAttribute="bottom" constant="-16" id="HFo-8p-iS8"/>
                             <constraint firstItem="aVA-rT-eco" firstAttribute="trailing" secondItem="3rC-HC-7ZX" secondAttribute="trailing" constant="2" id="Lo9-I2-fv0"/>
-                            <constraint firstItem="3rC-HC-7ZX" firstAttribute="top" secondItem="QO9-nm-Fo8" secondAttribute="bottom" constant="30" id="LoT-fb-7tA"/>
+                            <constraint firstItem="3rC-HC-7ZX" firstAttribute="top" secondItem="QO9-nm-Fo8" secondAttribute="bottom" constant="20" id="LoT-fb-7tA"/>
                             <constraint firstItem="QO9-nm-Fo8" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" constant="20" id="MDn-sg-zhr"/>
                             <constraint firstItem="YOl-XQ-3jr" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" constant="8" id="Nrt-ih-3bD"/>
+                            <constraint firstItem="QAh-mK-zJA" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" constant="8" id="QFT-zj-f3L"/>
                             <constraint firstItem="7G7-z3-hP0" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" id="SuX-b9-eh7"/>
                             <constraint firstItem="YOl-XQ-3jr" firstAttribute="top" secondItem="O0X-1O-C5s" secondAttribute="top" id="WVF-JZ-9dI"/>
                             <constraint firstItem="QO9-nm-Fo8" firstAttribute="top" secondItem="DAP-hd-cOZ" secondAttribute="top" constant="70" id="a9p-Ss-Vpy"/>
@@ -982,6 +990,7 @@
                             <constraint firstItem="3rC-HC-7ZX" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" constant="18" id="dQV-O1-liu"/>
                             <constraint firstItem="aVA-rT-eco" firstAttribute="trailing" secondItem="br4-WE-sXS" secondAttribute="trailing" constant="13" id="eCJ-V5-i6Z"/>
                             <constraint firstItem="br4-WE-sXS" firstAttribute="leading" secondItem="aVA-rT-eco" secondAttribute="leading" constant="27" id="p5Q-mr-7g2"/>
+                            <constraint firstItem="QAh-mK-zJA" firstAttribute="top" secondItem="br4-WE-sXS" secondAttribute="bottom" constant="31.666666666666629" id="rUL-Hg-RMP"/>
                             <constraint firstItem="br4-WE-sXS" firstAttribute="top" secondItem="3rC-HC-7ZX" secondAttribute="bottom" constant="10" id="ums-1f-qe0"/>
                         </constraints>
                     </view>
@@ -1045,11 +1054,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hbj-lf-1Tn">
-                                <rect key="frame" x="10" y="0.0" width="394" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MX6-f4-Xx5">
+                                <rect key="frame" x="20" y="20" width="374" height="120"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="    Add citys" image="magnifyingglass" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hbj-lf-1Tn">
+                                <rect key="frame" x="10" y="0.0" width="394" height="140"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="Lhc-3n-BZB"/>
+                                    <constraint firstAttribute="height" constant="140" id="Lhc-3n-BZB"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NVI-nh-SBq">
                                     <size key="itemSize" width="200" height="150"/>
@@ -1065,7 +1081,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Jf-Us-Otb" customClass="GradientView" customModule="rxWeather" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Jf-Us-Otb">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NUp-60-3wF">
@@ -1077,7 +1093,7 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ysZ-Ss-ZaS">
                                                                             <rect key="frame" x="0.0" y="0.0" width="90" height="130"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7C7-bx-Cwi">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7C7-bx-Cwi">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="65"/>
                                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1124,6 +1140,17 @@
                                                         <constraint firstAttribute="trailing" secondItem="NUp-60-3wF" secondAttribute="trailing" constant="10" id="Hwv-go-byd"/>
                                                         <constraint firstItem="NUp-60-3wF" firstAttribute="top" secondItem="7Jf-Us-Otb" secondAttribute="top" constant="10" id="LJC-gq-cy2"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -1131,14 +1158,6 @@
                                                 <constraint firstItem="7Jf-Us-Otb" firstAttribute="leading" secondItem="Q2L-q5-DMo" secondAttribute="leading" id="Ujv-RL-UcN"/>
                                                 <constraint firstAttribute="bottom" secondItem="7Jf-Us-Otb" secondAttribute="bottom" id="k4Y-Uu-Tla"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                    <real key="value" value="3"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="15"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="200" height="150"/>
@@ -1148,7 +1167,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="backView" destination="7Jf-Us-Otb" id="RJt-f4-4Z7"/>
                                             <outlet property="locationLabel" destination="7C7-bx-Cwi" id="c2X-zf-sTo"/>
                                             <outlet property="minMaxLabel" destination="tPy-wG-maH" id="m3p-f5-8NC"/>
                                             <outlet property="tempLabel" destination="ZAC-0P-AKk" id="Zzc-pS-T66"/>
@@ -1162,23 +1180,31 @@
                         <viewLayoutGuide key="safeArea" id="nNP-1H-VQp"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="MX6-f4-Xx5" firstAttribute="top" secondItem="nNP-1H-VQp" secondAttribute="top" constant="20" id="3SS-SG-YDK"/>
+                            <constraint firstItem="nNP-1H-VQp" firstAttribute="trailing" secondItem="MX6-f4-Xx5" secondAttribute="trailing" constant="20" id="C8j-cM-gDw"/>
+                            <constraint firstItem="MX6-f4-Xx5" firstAttribute="leading" secondItem="nNP-1H-VQp" secondAttribute="leading" constant="20" id="Jm2-Uv-cYx"/>
                             <constraint firstAttribute="bottom" secondItem="hbj-lf-1Tn" secondAttribute="bottom" id="LQn-vD-ciD"/>
                             <constraint firstItem="hbj-lf-1Tn" firstAttribute="leading" secondItem="mMj-Lp-Bfb" secondAttribute="leading" constant="10" id="Ojp-aY-ipp"/>
                             <constraint firstAttribute="trailing" secondItem="hbj-lf-1Tn" secondAttribute="trailing" constant="10" id="WMT-aa-Te6"/>
                             <constraint firstItem="hbj-lf-1Tn" firstAttribute="top" secondItem="mMj-Lp-Bfb" secondAttribute="top" id="XFC-RN-qRT"/>
+                            <constraint firstItem="MX6-f4-Xx5" firstAttribute="centerX" secondItem="mMj-Lp-Bfb" secondAttribute="centerX" id="jXa-ES-2bF"/>
+                            <constraint firstItem="nNP-1H-VQp" firstAttribute="bottom" secondItem="MX6-f4-Xx5" secondAttribute="bottom" constant="20" id="lUn-PA-bmG"/>
+                            <constraint firstItem="MX6-f4-Xx5" firstAttribute="centerY" secondItem="mMj-Lp-Bfb" secondAttribute="centerY" id="oaN-FX-Xs8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="hbj-lf-1Tn" id="lH0-6E-INl"/>
+                        <outlet property="findCitysButton" destination="MX6-f4-Xx5" id="er7-QD-cVg"/>
                         <segue destination="3Nj-aq-yaG" kind="presentation" identifier="showDetails" id="aTV-IE-6Mb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aag-o8-zl7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2231.8840579710145" y="-709.23913043478262"/>
+            <point key="canvasLocation" x="2230.434782608696" y="-709.23913043478262"/>
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -8,9 +8,12 @@
 import Foundation
 
 let BASE_URL = "https://api.openweathermap.org/"
-let APPID = "7d2dd8c9c5578b741c7735ad3f0d39ea"
+let APPID = "c8b99b4c5910042334e0971bcbd6f6d6"
 let UNITS = "imperial"
 
 
 let weatherCollectionCellId = "weatherCollectionCell"
 let searchCellId = "searchCell"
+let searchButtonId = "SearchButtonNotificationId"
+
+

@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             print(path.isExpensive)
         }
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()

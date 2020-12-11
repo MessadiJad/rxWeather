@@ -36,14 +36,6 @@ func convertDate(date: Int) -> String {
     return timeStamp
 }
 
-extension Date {
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
-    }
-}
-
 func getToDayDate() -> String {
     let dateFormatter : DateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MMM-dd HH:mm:ss"
@@ -98,7 +90,14 @@ func getDayName(day: Int) -> String {
     let epocTime = TimeInterval(day)
     let date = Date(timeIntervalSince1970: epocTime)
     return date.dayOfWeek()!
-    
+}
+
+extension Date {
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).capitalized
+    }
 }
 
 extension Double {
@@ -123,23 +122,6 @@ extension BehaviorRelay where Element: RangeReplaceableCollection {
     }
 }
 
-func addGradient(colors: [UIColor] = [.blue, .white], view :UIView) {
-    guard let gradientLayer = view.layer as? CAGradientLayer else { return }
-    gradientLayer.colors = colors.map{ $0.cgColor }
-    gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-    gradientLayer.endPoint = CGPoint(x:0, y:0.6)
-    gradientLayer.cornerRadius = 15
-    gradientLayer.type = .axial
-    gradientLayer.locations = [0, 2]
-}
-
-class GradientView: UIView {
-    override class var layerClass: Swift.AnyClass {
-        return CAGradientLayer.self
-    }
-}
-
-
 extension MKMapView {
     func centerToLocation(
         _ location: CLLocation,
@@ -153,7 +135,6 @@ extension MKMapView {
     }
 }
 
-
 extension UISearchBar {
     
     var textColor:UIColor? {
@@ -164,7 +145,6 @@ extension UISearchBar {
                 return nil
             }
         }
-        
         set (newValue) {
             if let textField = self.value(forKey: "searchField") as? UITextField  {
                 textField.textColor = newValue
@@ -186,7 +166,7 @@ extension UIBarButtonItem {
 }
 
 extension UIView {
-
+    
     @IBInspectable var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
@@ -196,7 +176,7 @@ extension UIView {
             layer.masksToBounds = newValue > 0
         }
     }
-
+    
     @IBInspectable var borderWidth: CGFloat {
         get {
             return layer.borderWidth
@@ -205,7 +185,7 @@ extension UIView {
             layer.borderWidth = newValue
         }
     }
-
+    
     @IBInspectable var borderColor: UIColor? {
         get {
             return UIColor(cgColor: layer.borderColor!)

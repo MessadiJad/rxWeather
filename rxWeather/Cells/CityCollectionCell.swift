@@ -13,7 +13,7 @@ class CityCollectionCell : UICollectionViewCell {
     @IBOutlet weak var weatherConditionLabel : UILabel!
     @IBOutlet weak var weatherIcon : UIImageView!
     @IBOutlet weak var minMaxLabel : UILabel!
-    @IBOutlet weak var backView : GradientView!
+    @IBOutlet weak var backView : UIView!
     @IBOutlet weak var collectionView : UICollectionView!
 
 }

@@ -14,13 +14,17 @@ class SkyView: UIView {
     
     static let shared = SkyView()
     let dateFormatter = DateFormatter()
-
+    
+    override class var layerClass: Swift.AnyClass {
+        return CAGradientLayer.self
+    }
+    
     func initWith(weather: String, timeZone: String, view: UIView) {
         
         guard let gradientLayer = view.layer as? CAGradientLayer else { return }
         self.addCondition(with: weather, view: view)
         constellationLayer = createConstellationLayer(view: view)
-
+        
         switch getCurrentHoure(timeZone: timeZone) {
         case "Day":
             if weather == "Clouds" ||  weather == "Fog" {
@@ -30,7 +34,7 @@ class SkyView: UIView {
             }
             
         case "Evening": gradientLayer.colors = [UIColorFromRGB(rgbValue: 0x0c1445).cgColor,UIColorFromRGB(rgbValue: 0x5c54a4).cgColor]
-           view.layer.addSublayer(constellationLayer)
+            view.layer.addSublayer(constellationLayer)
         case "Night": gradientLayer.colors = [UIColorFromRGB(rgbValue: 0x000428).cgColor,UIColorFromRGB(rgbValue: 0x004E92).cgColor]
             view.layer.addSublayer(constellationLayer)
         default: break
@@ -52,7 +56,7 @@ class SkyView: UIView {
         dateFormatter.timeZone = TimeZone(identifier: timeZone)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let dateString = dateFormatter.string(from: currentDate)
-
+        
         guard let date = dateFormatter.date(from: dateString) else {return ""}
         
         let hour = Calendar.current.component(.hour, from: date)
@@ -69,7 +73,7 @@ class SkyView: UIView {
         case "Snow":addSnow(view: view)
         default: break
         }
-    
+        
     }
     
     func createConstellationLayer(view : UIView) -> CAEmitterLayer {

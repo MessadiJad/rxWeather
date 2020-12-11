@@ -36,7 +36,7 @@ class SearchViewController: UIViewController ,UISearchResultsUpdating, UISearchB
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        NotificationCenter.default.post(name: Notification.Name("SearchButtonNotificationId"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(searchButtonId), object: nil)
         return true
     }
     
