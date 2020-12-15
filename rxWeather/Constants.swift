@@ -14,5 +14,4 @@ let UNITS = "imperial"
 
 let weatherCollectionCellId = "weatherCollectionCell"
 let searchCellId = "searchCell"
-
-
+let showDetailsSegueId = "showDetails"

@@ -48,12 +48,12 @@ class WeatherListController: UIViewController {
         }.disposed(by: self.viewModel.disposeBag)
 
         collectionView.rx.modelSelected(Citys.self).subscribe(onNext : { item in
-            self.performSegue(withIdentifier: "showDetails", sender: self)
+            self.performSegue(withIdentifier: showDetailsSegueId, sender: self)
         }).disposed(by: self.viewModel.disposeBag)
     }
     
     private func setupView() {
-        let rect = CGRect.init(origin: CGPoint.init(x: 10, y: 10), size: CGSize.init(width: view.frame.width - CGFloat(20), height:150))
+        let rect = CGRect.init(origin: CGPoint.init(x: 10, y: 10), size: CGSize.init(width: view.frame.width - CGFloat(30), height:150))
         let path = UIBezierPath(roundedRect: rect, cornerRadius: 15)
         layer.path = path.cgPath;
         layer.strokeColor = UIColor.white.cgColor
@@ -75,7 +75,7 @@ class WeatherListController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetails" {
+        if segue.identifier == showDetailsSegueId {
             guard let nc = segue.destination as? UINavigationController else { fatalError("Navigation controller does not exist") }
             guard let vc = nc.viewControllers.first as? WeatherDetailsController else { fatalError("WeatherDetailsController does not exist") }
             guard let indexPath = self.collectionView.indexPathsForSelectedItems?.first else { return }
