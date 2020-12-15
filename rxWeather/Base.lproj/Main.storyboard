@@ -723,7 +723,7 @@
         <!--Home Scene-->
         <scene sceneID="65z-L5-YS6">
             <objects>
-                <viewController id="yY7-Ou-TfN" userLabel="Home Scene" customClass="HomeViewController" customModule="rxWeather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewController" id="yY7-Ou-TfN" userLabel="Home Scene" customClass="HomeViewController" customModule="rxWeather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DAP-hd-cOZ" customClass="SkyView" customModule="rxWeather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

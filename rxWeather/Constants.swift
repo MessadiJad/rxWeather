@@ -14,6 +14,5 @@ let UNITS = "imperial"
 
 let weatherCollectionCellId = "weatherCollectionCell"
 let searchCellId = "searchCell"
-let searchButtonId = "SearchButtonNotificationId"
 
 

@@ -11,10 +11,10 @@ import RxCocoa
 import RxCoreLocation
 import CoreLocation
 
-class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControllerDelegate, WeatherListControllerDelegate {
+
+class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControllerDelegate, WeatherListControllerDelegate, SearchButtonDelegate {
+
   
-    
-    
     let viewModel = HomeViewModel()
     
     @IBOutlet weak var countryLabel : UILabel!
@@ -82,8 +82,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
             }
         }.disposed(by: self.viewModel.disposeBag)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showSearchButton), name: Notification.Name(searchButtonId), object: nil)
-        
     }
         
     private func setupView(with weather : String) {
@@ -107,6 +105,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
         searchController.searchBar.placeholder = "Search city"
         searchController.searchResultsUpdater = searchCitysVC
         searchController.searchBar.delegate = searchCitysVC
+        searchCitysVC.delegate = self
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.tintColor = .white
         searchController.searchBar.textColor = .white
@@ -125,8 +124,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
     }
     
     func searchCityDidSelect(elementExist : Bool) {
+        searchCitysVC.delegate?.didButtonShown(stats: false)
         if !elementExist {
-            searchButton.isHidden = true
             present(searchController, animated: true, completion: nil)
         }else {
             listCitysVC.collectionView.isHidden = false
@@ -139,10 +138,15 @@ class HomeViewController: UIViewController, UISearchBarDelegate, UISearchControl
         self.listCitysVC = segue.destination as! WeatherListController
         self.listCitysVC.delegate = self
     }
-
-    @objc func showSearchButton() {
-        searchButton.isHidden = false
-        searchButton.tintColor = .white
+    
+    func didButtonShown(stats: Bool) {
+        if stats {
+            searchButton.isHidden = false
+            searchButton.tintColor = .white
+        }else {
+            searchButton.isHidden = true
+        }
     }
     
+
 }

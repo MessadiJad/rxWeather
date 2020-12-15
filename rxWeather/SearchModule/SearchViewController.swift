@@ -7,12 +7,16 @@
 import UIKit
 import RxCocoa
 import RxSwift
+protocol SearchButtonDelegate: class  {
+    func didButtonShown(stats: Bool)
+}
 
 class SearchViewController: UIViewController ,UISearchResultsUpdating, UISearchBarDelegate {
     
     let viewModel = SearchControllerViewModel()
     let searchResults: BehaviorRelay<[Citys]> = BehaviorRelay(value: [])
-    
+    var delegate: SearchButtonDelegate?
+
     @IBOutlet weak var tableView : UITableView!
     
     override func viewDidLoad() {
@@ -24,7 +28,7 @@ class SearchViewController: UIViewController ,UISearchResultsUpdating, UISearchB
             self.viewModel.submitSearch(by: item)
             self.dismiss(animated: true, completion: nil)
         }).disposed(by: self.viewModel.disposeBag)
-        
+        delegate!.didButtonShown(stats: false)
         tableView.tableFooterView = UIView()
     }
     
@@ -35,12 +39,12 @@ class SearchViewController: UIViewController ,UISearchResultsUpdating, UISearchB
         return searchCell
     }
     
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        NotificationCenter.default.post(name: Notification.Name(searchButtonId), object: nil)
-        return true
-    }
     
     func updateSearchResults(for searchController: UISearchController) {
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate!.didButtonShown(stats: true)
+
+    }
 }
